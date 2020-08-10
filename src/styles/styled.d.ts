@@ -9,5 +9,8 @@ declare module "styled-components" {
       grayLight: string;
       white: string;
     };
+    transitions: {
+      smooth: string;
+    };
   }
 }

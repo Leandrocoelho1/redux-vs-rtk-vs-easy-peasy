@@ -6,4 +6,7 @@ export default {
     grayLight: "#F5F5F5",
     white: "#FFFFFF",
   },
+  transitions: {
+    smooth: "all 150ms ease",
+  },
 };
