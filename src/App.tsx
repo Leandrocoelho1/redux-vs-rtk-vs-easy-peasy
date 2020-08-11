@@ -1,15 +1,17 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
+import { MdAdd, MdModeEdit, MdDelete } from "react-icons/md";
 
 import GlobalStyles from "./styles/global";
 import main from "./styles/theme";
-import { Container, Header, Form, TodoList, Counter } from "./styles";
-import { MdAdd } from "react-icons/md";
+import Info from "./components/Info";
+import { Container, Header, Form, TodoList, Counter, Todo } from "./styles";
 
-function App() {
+const App: React.FC = () => {
   return (
     <ThemeProvider theme={main}>
       <GlobalStyles />
+      <Info />
       <Container>
         <main>
           <Header>
@@ -20,14 +22,26 @@ function App() {
             <h2>Add new Todo:</h2>
             <div>
               <input type="text" />
-              <button>
+              <button type="button">
                 <MdAdd size={20} />
               </button>
             </div>
           </Form>
           <TodoList>
             <h2>Your Todos</h2>
-            <div></div>
+            <div>
+              <Todo>
+                <p>Learn Redux</p>
+                <div>
+                  <button type="button">
+                    <MdModeEdit size={20} />
+                  </button>
+                  <button type="button">
+                    <MdDelete size={20} />
+                  </button>
+                </div>
+              </Todo>
+            </div>
           </TodoList>
           <Counter>
             <h2>Updates Counter: 0</h2>
@@ -36,6 +50,6 @@ function App() {
       </Container>
     </ThemeProvider>
   );
-}
+};
 
 export default App;
