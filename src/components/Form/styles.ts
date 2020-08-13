@@ -24,7 +24,7 @@ export const Container = styled.div`
     transition: ${({ theme }) => theme.transitions.smooth};
 
     &:focus-within {
-      background: ${({ theme }) => darken(0.15, theme.colors.grayMedium)};
+      background: ${({ theme }) => darken(0.08, theme.colors.grayMedium)};
     }
 
     input {

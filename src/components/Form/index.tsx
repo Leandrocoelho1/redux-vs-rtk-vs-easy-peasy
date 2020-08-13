@@ -6,19 +6,24 @@ import React, {
   useEffect,
 } from "react";
 import { MdAdd, MdCheck, MdClose } from "react-icons/md";
+
 // For Redux and RTK
-import { useSelector, useDispatch } from "react-redux";
-import {
-  createTodoActionCreator,
-  editTodoActionCreator,
-  selectTodoActionCreator,
-} from "../../redux-og";
+// import { useSelector, useDispatch } from "react-redux";
+// import {
+//   createTodoActionCreator,
+//   editTodoActionCreator,
+//   selectTodoActionCreator,
+// } from "../../redux-rtk";
+
+// For Zustand
+import useStore from "../../zustand";
 
 import { Todo, State } from "../../type";
 import { Container } from "./styles";
 
 const AddTodoForm: React.FC = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const addTodo = useStore((state) => state.addTodo);
   const addTodoInput = useRef<HTMLInputElement>(null);
   const [addTodoValue, setAddTodoValue] = useState<string>("");
 
@@ -33,7 +38,8 @@ const AddTodoForm: React.FC = () => {
       return;
     }
 
-    dispatch(createTodoActionCreator({ desc: addTodoValue }));
+    addTodo(addTodoValue);
+    // dispatch(createTodoActionCreator({ desc: addTodoValue }));
     setAddTodoValue("");
   };
   return (
@@ -59,7 +65,9 @@ interface EditTodoProps {
 }
 
 const EditTodoForm: React.FC<EditTodoProps> = ({ selectedTodo }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+
+  const { editTodo, selectTodo } = useStore((state) => state);
   const editTodoInput = useRef<HTMLInputElement>(null);
   const [editTodoValue, setEditTodoValue] = useState<string>(selectedTodo.desc);
 
@@ -74,14 +82,17 @@ const EditTodoForm: React.FC<EditTodoProps> = ({ selectedTodo }) => {
       return;
     }
 
-    dispatch(
-      editTodoActionCreator({ id: selectedTodo.id, desc: editTodoValue })
-    );
-    dispatch(selectTodoActionCreator({ id: "" }));
+    // dispatch(
+    //   editTodoActionCreator({ id: selectedTodo.id, desc: editTodoValue })
+    //   );
+    editTodo(selectedTodo.id, editTodoValue);
+    selectTodo("");
+    // dispatch(selectTodoActionCreator({ id: "" }));
   };
 
   const handleCancelEdit = (): void => {
-    dispatch(selectTodoActionCreator({ id: "" }));
+    // dispatch(selectTodoActionCreator({ id: "" }));
+    selectTodo("");
   };
 
   useEffect(() => {
@@ -111,15 +122,18 @@ const EditTodoForm: React.FC<EditTodoProps> = ({ selectedTodo }) => {
 };
 
 const Form: React.FC = () => {
-  const todos = useSelector((state: State) => state.todos);
-  const selectedTodoId = useSelector((state: State) => state.selectedTodo);
+  // const todos = useSelector((state: State) => state.todos);
+  // const selectedTodoId = useSelector((state: State) => state.selectedTodo);
+
+  const { todos, selectedTodo: selectedTodoId } = useStore((state) => state);
   const selectedTodo =
-    (selectedTodoId && todos.find((todo) => todo.id === selectedTodoId)) ||
+    (selectedTodoId &&
+      todos.find((todo: Todo) => todo.id === selectedTodoId)) ||
     null;
   return (
     <Container>
       {selectedTodo ? (
-        <EditTodoForm selectedTodo={selectedTodo} />
+        <EditTodoForm key={selectedTodo.id} selectedTodo={selectedTodo} />
       ) : (
         <AddTodoForm />
       )}

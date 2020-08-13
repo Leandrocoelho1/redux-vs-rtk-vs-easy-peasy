@@ -1,13 +1,17 @@
 import React from "react";
 import { AnimatePresence } from "framer-motion";
 import { MdModeEdit, MdDelete } from "react-icons/md";
+
 // For Redux and RTK
-import { useSelector, useDispatch } from "react-redux";
-import {
-  deleteTodoActionCreator,
-  toggleTodoActionCreator,
-  selectTodoActionCreator,
-} from "../../redux-og";
+// import { useSelector, useDispatch } from "react-redux";
+// import {
+//   deleteTodoActionCreator,
+//   toggleTodoActionCreator,
+//   selectTodoActionCreator,
+// } from "../../redux-rtk";
+
+// For Zustand
+import useStore from "../../zustand";
 
 import { State, Todo as TodoType } from "../../type";
 import { Container, TodoContainer } from "./styles";
@@ -51,28 +55,35 @@ const Todo: React.FC<TodoProps> = ({
 };
 
 const Todos: React.FC = () => {
-  const dispatch = useDispatch();
-  const todos = useSelector((state: State) => state.todos);
+  // const dispatch = useDispatch();
+  // const todos = useSelector((state: State) => state.todos);
+
+  const { todos, deleteTodo, toggleTodo, selectTodo } = useStore(
+    (state) => state
+  );
 
   const handleToggle = (todo: TodoType): void => {
-    dispatch(
-      toggleTodoActionCreator({ id: todo.id, isComplete: !todo.isComplete })
-    );
+    // dispatch(
+    //   toggleTodoActionCreator({ id: todo.id, isComplete: !todo.isComplete })
+    // );
+    toggleTodo(todo.id);
   };
 
   const handleSelectToEdit = (id: string): void => {
-    dispatch(selectTodoActionCreator({ id }));
+    // dispatch(selectTodoActionCreator({ id }));
+    selectTodo(id);
   };
 
   const handleDelete = (id: string): void => {
-    dispatch(deleteTodoActionCreator({ id }));
+    // dispatch(deleteTodoActionCreator({ id }));
+    deleteTodo(id);
   };
   return (
     <Container>
       <h2>Your Todos</h2>
       <div>
         <AnimatePresence>
-          {todos.map((todo) => (
+          {todos.map((todo: any) => (
             <Todo
               key={todo.id}
               todo={todo}
