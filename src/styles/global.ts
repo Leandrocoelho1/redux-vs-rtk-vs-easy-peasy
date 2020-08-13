@@ -2,9 +2,9 @@ import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
  *, *::before, *::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     outline: 0;
   }
 
@@ -13,15 +13,17 @@ export default createGlobalStyle`
   }
 
   body, input, button {
-    -webkit-font-smothing: antialiased;
     font-family: 'Poppins', sans-serif;
     font-size: 1.6rem;
+    -webkit-font-smothing: antialiased;
   }
 
   body {
-    background: ${({ theme }) => theme.colors.grayLight};
-    color: ${({ theme }) => theme.colors.dark};
+    overflow-x: hidden;
+    width: 100%;
     min-height: 100vh;
+    color: ${({ theme }) => theme.colors.dark};
+    background: ${({ theme }) => theme.colors.grayLight};
   }
 
   button {

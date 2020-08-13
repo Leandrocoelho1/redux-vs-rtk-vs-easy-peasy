@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyles from "./styles/global";
 import main from "./styles/theme";
 import Info from "./components/Info";
+import Background from "./components/Background";
 import Form from "./components/Form";
 import Todos from "./components/Todos";
 import Counter from "./components/Counter";
@@ -14,6 +15,7 @@ const App: React.FC = () => {
     <ThemeProvider theme={main}>
       <GlobalStyles />
       <Info />
+      <Background />
       <Container>
         <main>
           <Header>

@@ -1,4 +1,5 @@
 import React from "react";
+import { AnimatePresence } from "framer-motion";
 import { MdModeEdit, MdDelete } from "react-icons/md";
 // For Redux and RTK
 import { useSelector, useDispatch } from "react-redux";
@@ -26,8 +27,13 @@ const Todo: React.FC<TodoProps> = ({
   onToggleClick,
 }) => {
   return (
-    <TodoContainer>
+    <TodoContainer
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.8 }}
+    >
       <Checkbox
+        id={`checkbox-${todo.id}`}
         checked={todo.isComplete}
         onChange={() => onToggleClick(todo)}
       />
@@ -65,15 +71,17 @@ const Todos: React.FC = () => {
     <Container>
       <h2>Your Todos</h2>
       <div>
-        {todos.map((todo) => (
-          <Todo
-            key={todo.id}
-            todo={todo}
-            onEditClick={handleSelectToEdit}
-            onDeleteClick={handleDelete}
-            onToggleClick={handleToggle}
-          />
-        ))}
+        <AnimatePresence>
+          {todos.map((todo) => (
+            <Todo
+              key={todo.id}
+              todo={todo}
+              onEditClick={handleSelectToEdit}
+              onDeleteClick={handleDelete}
+              onToggleClick={handleToggle}
+            />
+          ))}
+        </AnimatePresence>
       </div>
     </Container>
   );
