@@ -83,7 +83,7 @@ const Todos: React.FC = () => {
       <h2>Your Todos</h2>
       <div>
         <AnimatePresence>
-          {todos.map((todo: any) => (
+          {todos.map((todo) => (
             <Todo
               key={todo.id}
               todo={todo}
