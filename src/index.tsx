@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
+// import { Provider } from "react-redux";
+import { StoreProvider as Provider } from "easy-peasy";
 
-// Change import from Redux ou RTK
-import store from "./redux-rtk";
+// Change import from Redux, RTK or Easy-peasy
+import store from "./easy-peasy";
 
 import App from "./App";
 

@@ -2,7 +2,7 @@ import React from "react";
 import { AnimatePresence } from "framer-motion";
 import { MdModeEdit, MdDelete } from "react-icons/md";
 
-// For Redux and RTK
+// --> Redux and RTK
 // import { useSelector, useDispatch } from "react-redux";
 // import {
 //   deleteTodoActionCreator,
@@ -10,10 +10,9 @@ import { MdModeEdit, MdDelete } from "react-icons/md";
 //   selectTodoActionCreator,
 // } from "../../redux-rtk";
 
-// For Zustand
-import useStore from "../../zustand";
+import { useStoreState, useStoreActions } from "../../easy-peasy";
 
-import { State, Todo as TodoType } from "../../type";
+import { Todo as TodoType } from "../../type";
 import { Container, TodoContainer } from "./styles";
 import Checkbox from "../Checkbox";
 
@@ -55,28 +54,41 @@ const Todo: React.FC<TodoProps> = ({
 };
 
 const Todos: React.FC = () => {
+  // --> Redux and TRK
   // const dispatch = useDispatch();
   // const todos = useSelector((state: State) => state.todos);
 
-  const { todos, deleteTodo, toggleTodo, selectTodo } = useStore(
-    (state) => state
+  // --> Easy-peasy
+  const todos = useStoreState((state) => state.todos.items);
+  const { toggleTodo, deleteTodo } = useStoreActions(
+    (actions) => actions.todos
   );
+  const { selectTodo } = useStoreActions((actions) => actions.selectedTodo);
 
   const handleToggle = (todo: TodoType): void => {
+    // --> Redux and RTK
     // dispatch(
     //   toggleTodoActionCreator({ id: todo.id, isComplete: !todo.isComplete })
     // );
-    toggleTodo(todo.id);
+
+    // --> Easy-peasy
+    toggleTodo({ id: todo.id });
   };
 
   const handleSelectToEdit = (id: string): void => {
+    // --> Redux and RTK
     // dispatch(selectTodoActionCreator({ id }));
-    selectTodo(id);
+
+    // --> Easy-peasy
+    selectTodo({ id });
   };
 
   const handleDelete = (id: string): void => {
+    // --> Redux and RTK
     // dispatch(deleteTodoActionCreator({ id }));
-    deleteTodo(id);
+
+    // --> Easy-peasy
+    deleteTodo({ id });
   };
   return (
     <Container>

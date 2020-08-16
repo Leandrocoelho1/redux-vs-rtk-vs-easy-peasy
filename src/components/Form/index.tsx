@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { MdAdd, MdCheck, MdClose } from "react-icons/md";
 
-// For Redux and RTK
+// --> Redux and RTK
 // import { useSelector, useDispatch } from "react-redux";
 // import {
 //   createTodoActionCreator,
@@ -15,15 +15,19 @@ import { MdAdd, MdCheck, MdClose } from "react-icons/md";
 //   selectTodoActionCreator,
 // } from "../../redux-rtk";
 
-// For Zustand
-import useStore from "../../zustand";
+// --> Easy-peasy
+import { useStoreActions, useStoreState } from "../../easy-peasy";
 
-import { Todo, State } from "../../type";
+import { Todo } from "../../type";
 import { Container } from "./styles";
 
 const AddTodoForm: React.FC = () => {
+  // --> Redux and RTK
   // const dispatch = useDispatch();
-  const addTodo = useStore((state) => state.addTodo);
+
+  // --> Easy-peasy
+  const { addTodo } = useStoreActions((actions) => actions.todos);
+
   const addTodoInput = useRef<HTMLInputElement>(null);
   const [addTodoValue, setAddTodoValue] = useState<string>("");
 
@@ -38,8 +42,12 @@ const AddTodoForm: React.FC = () => {
       return;
     }
 
-    addTodo(addTodoValue);
+    // --> Redux and RTK
     // dispatch(createTodoActionCreator({ desc: addTodoValue }));
+
+    // --> Easy-peasy
+    addTodo({ desc: addTodoValue });
+
     setAddTodoValue("");
   };
   return (
@@ -65,9 +73,13 @@ interface EditTodoProps {
 }
 
 const EditTodoForm: React.FC<EditTodoProps> = ({ selectedTodo }) => {
+  // --> Redux and RTK
   // const dispatch = useDispatch();
 
-  const { editTodo, selectTodo } = useStore((state) => state);
+  // --> Easy-peasy
+  const { editTodo } = useStoreActions((actions) => actions.todos);
+  const { selectTodo } = useStoreActions((actions) => actions.selectedTodo);
+
   const editTodoInput = useRef<HTMLInputElement>(null);
   const [editTodoValue, setEditTodoValue] = useState<string>(selectedTodo.desc);
 
@@ -85,14 +97,19 @@ const EditTodoForm: React.FC<EditTodoProps> = ({ selectedTodo }) => {
     // dispatch(
     //   editTodoActionCreator({ id: selectedTodo.id, desc: editTodoValue })
     //   );
-    editTodo(selectedTodo.id, editTodoValue);
-    selectTodo("");
     // dispatch(selectTodoActionCreator({ id: "" }));
+
+    // --> Easy-peasy
+    editTodo({ id: selectedTodo.id, desc: editTodoValue });
+    selectTodo({ id: "" });
   };
 
   const handleCancelEdit = (): void => {
+    // --> Redux and RTK
     // dispatch(selectTodoActionCreator({ id: "" }));
-    selectTodo("");
+
+    // --> Easy-peasy
+    selectTodo({ id: "" });
   };
 
   useEffect(() => {
@@ -122,10 +139,14 @@ const EditTodoForm: React.FC<EditTodoProps> = ({ selectedTodo }) => {
 };
 
 const Form: React.FC = () => {
+  // --> Redux and RTK
   // const todos = useSelector((state: State) => state.todos);
   // const selectedTodoId = useSelector((state: State) => state.selectedTodo);
 
-  const { todos, selectedTodo: selectedTodoId } = useStore((state) => state);
+  // --> Easy-peasy
+  const todos = useStoreState((state) => state.todos.items);
+  const selectedTodoId = useStoreState((state) => state.selectedTodo.id);
+
   const selectedTodo =
     (selectedTodoId &&
       todos.find((todo: Todo) => todo.id === selectedTodoId)) ||
