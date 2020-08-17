@@ -1,6 +1,8 @@
 ## Introduction
 
-This small project is an extension to Justin Kim's amazing [Redux Toolkit and React tutorial](https://www.youtube.com/watch?v=9lCmbth63k0). I designed yet **another Todo App** and implemented the same store using [Easy Peasy](https://easy-peasy.now.sh/) to add a comparison with one more global state tool for React.
+This small project is an extension to Justin Kim's amazing [Redux Toolkit and React tutorial](https://www.youtube.com/watch?v=9lCmbth63k0). I designed  **another Todo App** and implemented the same store using [Easy Peasy](https://easy-peasy.now.sh/) to add a comparison with one more global state tool for React.
+
+![App Screenshot](https://github.com/Leandrocoelho1/redux-vs-rtk-vs-zustand/blob/master/src/assets/scrennshot.jpg)
 
 ## Usage
 
