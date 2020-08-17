@@ -13,17 +13,17 @@ import {
 const todosInitialState: Todo[] = [
   {
     id: uuid(),
-    desc: "Learn React",
-    isComplete: true,
-  },
-  {
-    id: uuid(),
     desc: "Learn Redux",
     isComplete: true,
   },
   {
     id: uuid(),
     desc: "Learn Redux-ToolKit",
+    isComplete: true,
+  },
+  {
+    id: uuid(),
+    desc: "Learn easy-peasy",
     isComplete: false,
   },
 ];

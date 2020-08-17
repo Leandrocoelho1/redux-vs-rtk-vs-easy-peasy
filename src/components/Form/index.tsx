@@ -94,6 +94,7 @@ const EditTodoForm: React.FC<EditTodoProps> = ({ selectedTodo }) => {
       return;
     }
 
+    // --> Redux and RTK
     // dispatch(
     //   editTodoActionCreator({ id: selectedTodo.id, desc: editTodoValue })
     //   );
@@ -115,6 +116,7 @@ const EditTodoForm: React.FC<EditTodoProps> = ({ selectedTodo }) => {
   useEffect(() => {
     editTodoInput?.current?.focus();
   }, []);
+
   return (
     <>
       <h2>Edit Todo:</h2>

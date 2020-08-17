@@ -119,7 +119,7 @@ const todosInitialState: Todo[] = [
   },
   {
     id: uuid(),
-    desc: "Learn Zustand",
+    desc: "Learn easy-peasy",
     isComplete: false,
   },
 ];
